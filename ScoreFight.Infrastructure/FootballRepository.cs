@@ -11,8 +11,7 @@ namespace ScoreFight.Infrastructure
 
         public FootballRepository(EfContext context)
         {
-            this._context = context;
-            context.Database.EnsureCreated();
+            _context = context;
         }
 
         public IEnumerable<Team> Query(Func<IQueryable<Team>, IQueryable<Team>> query)
