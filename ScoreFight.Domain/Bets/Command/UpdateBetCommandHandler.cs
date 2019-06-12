@@ -21,19 +21,17 @@ namespace ScoreFight.Domain.Bets.Command
         {
             var userId = Guid.Parse(command.PlayerId);
             var matchId = Guid.Parse(command.MatchId);
-            var match = _matchesRepository.GetById(matchId);
-
-            _betCommandValidator.CheckIfMatchDoesNotExist(match, command.MatchId);
-            _betCommandValidator.CheckIfMatchAlreadyStarted(match);
-
             var bet = _betRepository.GetBet(userId, matchId);
 
             if (bet == null)
             {
                 throw new NullReferenceException($"Bet for PlayerId: '{command.PlayerId}' and MatchId: ' {command.MatchId} ' does not exists.");
             }
+            _betCommandValidator.CheckIfMatchAlreadyStarted(bet.Matches);
 
-            _betRepository.Save(bet);
+            bet.SetTeamBet(command.TeamBet);
+            bet.SetPointsBet(command.PointsBet);
+            _betRepository.Commit();;
         }
     }
 }
