@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 import {CarsModule} from "./cars/cars.module";
 import {CarsService} from "./cars/cars.service";
 import {CoreModule} from "./core-module/core.module";
-import {CarsListComponent} from "./cars/cars-list/cars-list.component";
-import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {CarsRoutingModule} from "./cars/cars-routing.module";
+import {MatchesModule} from "./matches/matches.module";
+import {MatchesRoutingModule} from "./matches/matches-routing.module";
 
 @NgModule({
   declarations: [
@@ -22,8 +22,10 @@ import {CarsRoutingModule} from "./cars/cars-routing.module";
     HttpModule,
     CarsModule,
     CoreModule,
+    MatchesModule,
     AppRoutingModule,
-    CarsRoutingModule
+    CarsRoutingModule,
+    MatchesRoutingModule
   ],
   providers: [CarsService],
   bootstrap: [AppComponent]
