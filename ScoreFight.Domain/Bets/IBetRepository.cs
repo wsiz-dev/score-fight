@@ -9,6 +9,9 @@ namespace ScoreFight.Domain.Bets
         bool Exist(Guid playerId, Guid matchId);
 
         void Save(Bet bet);
+
+        void Cancel(Bet bet);
+
         void Commit();
     }
 }
