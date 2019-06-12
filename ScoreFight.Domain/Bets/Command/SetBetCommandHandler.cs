@@ -1,6 +1,6 @@
 ﻿using System;
 using ScoreFight.Domain.Bets.Enums;
-using ScoreFight.Domain.Bets.Services.Interfaces;
+using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Domain.Bets.Command
@@ -9,25 +9,25 @@ namespace ScoreFight.Domain.Bets.Command
     {
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
-        private readonly IBetService _betService;
+        private readonly BetCommandValidator _betCommandValidator;
 
-        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, IBetService betService)
+        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, BetCommandValidator betCommandValidator)
         {
             _betRepository = betRepository;
             _matchesRepository = matchesRepository;
-            _betService = betService;
+            _betCommandValidator = betCommandValidator;
         }
         public void Handle(SetBetCommand command)
         {
             var playerId = Guid.Parse(command.PlayerId);
             var matchId = Guid.Parse(command.MatchId);
 
-            _betService.CheckIfBetAlreadyExist(playerId, matchId);
+            _betCommandValidator.CheckIfBetAlreadyExist(playerId, matchId);
 
             var match = _matchesRepository.GetById(matchId);
 
-            _betService.CheckIfMatchDoesNotExist(match, command.MatchId);
-            _betService.CheckIfMatchAlreadyStarted(match);
+            _betCommandValidator.CheckIfMatchDoesNotExist(match, command.MatchId);
+            _betCommandValidator.CheckIfMatchAlreadyStarted(match);
 
             var bet = new Bet(playerId, matchId, (TeamBet)command.TeamBet, command.PointsBet);
 

@@ -1,14 +1,13 @@
 ﻿using System;
-using ScoreFight.Domain.Bets.Services.Interfaces;
 using ScoreFight.Domain.Matches;
 
-namespace ScoreFight.Domain.Bets.Services
+namespace ScoreFight.Domain.Bets.Validators
 {
-    public class BetService : IBetService
+    public class BetCommandValidator
     {
         private readonly IBetRepository _betRepository;
 
-        public BetService(IBetRepository betRepository)
+        public BetCommandValidator(IBetRepository betRepository)
         {
             _betRepository = betRepository;
         }
