@@ -11,6 +11,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {CarsRoutingModule} from "./cars/cars-routing.module";
 import {MatchesModule} from "./matches/matches.module";
 import {MatchesRoutingModule} from "./matches/matches-routing.module";
+import {PlayersRoutingModule} from "./players/players-routing.module";
+import {PlayersModule} from "./players/players.module";
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import {MatchesRoutingModule} from "./matches/matches-routing.module";
     CarsModule,
     CoreModule,
     MatchesModule,
+    PlayersModule,
     AppRoutingModule,
     CarsRoutingModule,
-    MatchesRoutingModule
+    MatchesRoutingModule,
+    PlayersRoutingModule
   ],
   providers: [CarsService],
   bootstrap: [AppComponent]
