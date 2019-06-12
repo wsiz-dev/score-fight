@@ -1,0 +1,39 @@
+<cs-header>
+  <p levels>Ranking</p>
+
+  <div content>
+    <p>Players ranking</p>
+  </div>
+</cs-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <table *ngIf="positions && positions.length > 0; else noPositionsInfo" class="cs-table table table-striped">
+        <thead>
+        <tr>
+          <th>Ranking</th>
+          <th>Login</th>
+          <th>Level</th>
+          <th>Max level</th>
+          <th>Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let position of positions; let i = index">
+          <td> {{ position?.orderNumber }}</td>
+          <td> {{ position?.login }}</td>
+          <td> {{ position?.level }}</td>
+          <td> {{ position?.maxLevel }}</td>
+          <td> {{ position?.points }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <ng-template #noPositionsInfo>
+        <div class="no-positions-info">
+          <p>Currently no players ranking positions</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

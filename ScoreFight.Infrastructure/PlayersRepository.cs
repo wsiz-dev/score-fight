@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Infrastructure
@@ -11,6 +13,9 @@ namespace ScoreFight.Infrastructure
         {
             _efContext = efContext;
         }
+
+        public IEnumerable<Player> Query(Func<IQueryable<Player>, IEnumerable<Player>> query)
+            => query(_efContext.Players);
 
         public Player GetById(Guid id)
             => _efContext.Players.Find(id);
