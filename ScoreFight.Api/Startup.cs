@@ -60,6 +60,13 @@ namespace ScoreFight.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScoreFight API V1");
             });
 
+            app.UseCors(configure =>
+            {
+                configure.AllowAnyHeader();
+                configure.AllowAnyMethod();
+                configure.AllowAnyOrigin();
+            });
+
             app.UseHttpsRedirection();
             app.UseMvc();
 

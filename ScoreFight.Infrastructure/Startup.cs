@@ -2,6 +2,7 @@
 using ScoreFight.Domain;
 using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Matches;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Infrastructure
 {
@@ -12,6 +13,7 @@ namespace ScoreFight.Infrastructure
             ConfigureMediator(containerBuilder);
             containerBuilder.RegisterType<FootballRepository>().As<IFootballRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MatchesRepository>().As<IMatchesRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<PlayersRepository>().As<IPlayersRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<BetRepository>().As<IBetRepository>().InstancePerLifetimeScope();
             containerBuilder.Register(context =>
             {

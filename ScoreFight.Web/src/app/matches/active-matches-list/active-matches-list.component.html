@@ -1,0 +1,35 @@
+<cs-header>
+  <p levels>matches</p>
+
+  <div content>
+    <p>Active matches</p>
+  </div>
+</cs-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <table *ngIf="matches && matches.length > 0; else noMatchesInfo" class="cs-table table table-striped">
+        <thead>
+        <tr>
+          <th>Home team</th>
+          <th>Away team</th>
+          <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let match of matches; let i = index">
+          <td> {{ match?.homeTeam }}</td>
+          <td> {{ match?.awayTeam }}</td>
+          <td> {{ match?.date | date:'shortDate' }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <ng-template #noMatchesInfo>
+        <div class="no-matches-info">
+          <p>Currently no active matches</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
