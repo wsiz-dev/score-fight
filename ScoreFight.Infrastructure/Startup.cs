@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ScoreFight.Domain;
+using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Infrastructure
@@ -11,6 +12,7 @@ namespace ScoreFight.Infrastructure
             ConfigureMediator(containerBuilder);
             containerBuilder.RegisterType<FootballRepository>().As<IFootballRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MatchesRepository>().As<IMatchesRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<BetRepository>().As<IBetRepository>().InstancePerLifetimeScope();
             containerBuilder.Register(context =>
             {
                 var efContext = new EfContext();

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ScoreFight.Domain;
+using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Matches;
+using ScoreFight.Infrastructure.EntityConfiguration;
 
 namespace ScoreFight.Infrastructure
 {
@@ -11,6 +13,8 @@ namespace ScoreFight.Infrastructure
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Match> Matches { get; set; }
+
+        public DbSet<Bet> Bets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,6 +26,7 @@ namespace ScoreFight.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new BetConfiguration());
 
             modelBuilder.Entity<Team>().HasKey(x => x.Name);
             modelBuilder.Entity<Team>().HasData(TeamsInitialData());

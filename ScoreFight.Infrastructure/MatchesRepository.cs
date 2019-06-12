@@ -16,5 +16,11 @@ namespace ScoreFight.Infrastructure
 
         public IEnumerable<Match> Query(Func<IQueryable<Match>, IEnumerable<Match>> query)
             => query(_efContext.Matches).ToList();
+
+        public Match GetById(Guid matchId)
+            {
+                return _efContext.Matches
+                    .FirstOrDefault(x => x.Id == matchId);
+            }
     }
 }
