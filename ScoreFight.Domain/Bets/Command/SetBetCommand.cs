@@ -4,7 +4,7 @@ namespace ScoreFight.Domain.Bets.Command
 {
     public class SetBetCommand : ICommand
     {
-        public string UserId { get; }
+        public string PlayerId { get; }
 
         public string MatchId { get; }
 
@@ -13,10 +13,10 @@ namespace ScoreFight.Domain.Bets.Command
         public int PointsBet { get; }
 
 
-        public SetBetCommand(string userId, string matchId, int teamBet, int pointsBet)
+        public SetBetCommand(string playerId, string matchId, int teamBet, int pointsBet)
         {
-            if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException(nameof(userId));
-            UserId = userId;
+            if (string.IsNullOrWhiteSpace(playerId)) throw new ArgumentException(nameof(playerId));
+            PlayerId = playerId;
 
             if (string.IsNullOrWhiteSpace(matchId)) throw new ArgumentException(nameof(matchId));
             MatchId = matchId;

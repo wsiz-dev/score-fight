@@ -9,7 +9,7 @@ namespace ScoreFight.Infrastructure.EntityConfiguration
         public void Configure(EntityTypeBuilder<Bet> builder)
         {
             builder
-                .HasKey(b => new { b.UserId, b.MatchId });
+                .HasKey(b => new { b.PlayerId, b.MatchId });
 
             builder
                 .HasOne(b => b.Matches)
@@ -17,9 +17,9 @@ namespace ScoreFight.Infrastructure.EntityConfiguration
                 .HasForeignKey(b => b.MatchId);
 
             builder
-                .HasOne(b => b.Users)
+                .HasOne(b => b.Players)
                 .WithMany(b => b.Bets)
-                .HasForeignKey(b => b.UserId);
+                .HasForeignKey(b => b.PlayerId);
         }
     }
 }

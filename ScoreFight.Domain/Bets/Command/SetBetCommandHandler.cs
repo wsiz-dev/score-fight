@@ -19,17 +19,17 @@ namespace ScoreFight.Domain.Bets.Command
         }
         public void Handle(SetBetCommand command)
         {
-            var userId = Guid.Parse(command.UserId);
+            var playerId = Guid.Parse(command.PlayerId);
             var matchId = Guid.Parse(command.MatchId);
 
-            _betService.CheckIfBetAlreadyExist(userId, matchId);
+            _betService.CheckIfBetAlreadyExist(playerId, matchId);
 
             var match = _matchesRepository.GetById(matchId);
 
             _betService.CheckIfMatchDoesNotExist(match, command.MatchId);
             _betService.CheckIfMatchAlreadyStarted(match);
 
-            var bet = new Bet(userId, matchId, (TeamBet)command.TeamBet, command.PointsBet);
+            var bet = new Bet(playerId, matchId, (TeamBet)command.TeamBet, command.PointsBet);
 
             _betRepository.Save(bet);
         }

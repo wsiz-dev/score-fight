@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ScoreFight.Domain.Bets;
 
 namespace ScoreFight.Domain.Players
 {
@@ -17,5 +19,7 @@ namespace ScoreFight.Domain.Players
         public int Wins { get; set; }
 
         public int Loses { get; set; }
+
+        public virtual ICollection<Bet> Bets { get; protected set; }
     }
 }

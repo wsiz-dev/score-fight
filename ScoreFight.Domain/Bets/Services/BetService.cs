@@ -12,11 +12,11 @@ namespace ScoreFight.Domain.Bets.Services
         {
             _betRepository = betRepository;
         }
-        public void CheckIfBetAlreadyExist(Guid userId, Guid matchId)
+        public void CheckIfBetAlreadyExist(Guid playerId, Guid matchId)
         {
-            if (_betRepository.Exist(userId, matchId))
+            if (_betRepository.Exist(playerId, matchId))
             {
-                throw new ArgumentException($"Bet for UserId: '{userId.ToString()}' and MatchId: ' {matchId.ToString()} ' already exists.");
+                throw new ArgumentException($"Bet for PlayerId: '{playerId.ToString()}' and MatchId: ' {matchId.ToString()} ' already exists.");
             }
         }
 

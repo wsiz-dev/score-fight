@@ -1,21 +1,22 @@
 ﻿using System;
 using ScoreFight.Domain.Bets.Enums;
 using ScoreFight.Domain.Matches;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets
 {
     public class Bet
     {
-        public Bet(Guid userId, Guid matchId, TeamBet teamBet, int points)
+        public Bet(Guid playerId, Guid matchId, TeamBet teamBet, int points)
         {
-            UserId = userId;
+            PlayerId = playerId;
             MatchId = matchId;
             TeamBet = teamBet;
             Points = points;
         }
-        public User Users { get; protected set; }
+        public Player Players { get; protected set; }
 
-        public Guid UserId { get; protected set; }
+        public Guid PlayerId { get; protected set; }
 
         public Match Matches { get; protected set; }
 
