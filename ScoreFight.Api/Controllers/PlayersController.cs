@@ -22,7 +22,7 @@ namespace ScoreFight.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(IEnumerable<Player>), 200)]
+        [ProducesResponseType(typeof(Player), 200)]
         public IActionResult GetById(Guid id)
         {
             var result = _mediator.Query(new GetPlayerByIdQuery(id));
@@ -31,6 +31,18 @@ namespace ScoreFight.Api.Controllers
                 return NotFound(id);
             }
 
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns players ranking
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ranking")]
+        [ProducesResponseType(typeof(IEnumerable<RankingPosition>), 200)]
+        public IActionResult GetRanking()
+        {
+            var result = _mediator.Query(new GetRankingQuery());
             return Ok(result);
         }
     }
