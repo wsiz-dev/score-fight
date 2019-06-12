@@ -13,7 +13,7 @@ namespace ScoreFight.Domain.Bets.Command
 
         public CancelBetCommand(string playerId, string matchId, int teamBet, int pointsBet)
         {
-            if (string.IsNullOrWhiteSpace(playerId)) throw new ArgumentException(nameof(useplayerIdrId));
+            if (string.IsNullOrWhiteSpace(playerId)) throw new ArgumentException(nameof(playerId));
             PlayerId = playerId;
 
             if (string.IsNullOrWhiteSpace(matchId)) throw new ArgumentException(nameof(matchId));
