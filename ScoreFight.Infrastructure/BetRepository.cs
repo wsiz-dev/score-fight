@@ -21,6 +21,7 @@ namespace ScoreFight.Infrastructure
             return _context.Bets
                 .Where(x => x.PlayerId == playerId && x.MatchId == matchId)
                 .Include(x => x.Match)
+                .Include(x => x.Player)
                 .FirstOrDefault();
         }
 

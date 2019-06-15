@@ -58,6 +58,10 @@ namespace ScoreFight.Domain.Players
             }
             Points -= points - pointsInBet;
         }
+        public void CountPointsAfterCancel(int points)
+        {
+            Points += points;
+        }
     }
 
 }
