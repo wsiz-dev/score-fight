@@ -1,6 +1,7 @@
 ﻿using System;
 using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets.Command
 {
@@ -9,12 +10,14 @@ namespace ScoreFight.Domain.Bets.Command
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
         private readonly BetCommandValidator _betCommandValidator;
+        private readonly IPlayersRepository _playersRepository;
 
-        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, BetCommandValidator betCommandValidator)
+        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, BetCommandValidator betCommandValidator, IPlayersRepository playersRepository)
         {
             _betRepository = betRepository;
             _matchesRepository = matchesRepository;
             _betCommandValidator = betCommandValidator;
+            _playersRepository = playersRepository;
         }
 
         public void Handle(SetBetCommand command)
@@ -30,6 +33,8 @@ namespace ScoreFight.Domain.Bets.Command
             _betCommandValidator.CheckIfMatchAlreadyStarted(match);
 
             var bet = new Bet(playerId, matchId, (MatchResults)command.TeamBet, command.PointsBet);
+            var player = _playersRepository.GetById(playerId);
+            player.CountPointsAfterBet(command.PointsBet);
 
             _betRepository.Save(bet);
         }

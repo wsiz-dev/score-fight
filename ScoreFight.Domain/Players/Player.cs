@@ -35,6 +35,15 @@ namespace ScoreFight.Domain.Players
             Points += (int)pointsEarned;
         }
 
+        public void CountPointsAfterBet(int points)
+        {
+            if (points >= Points)
+            {
+                throw  new ArgumentException($"Not enough points. You bet: ' {points} 'points. Your number of points is: ' {Points} '.");
+            }
+            Points -= points;
+        }
+
     }
 
 }
