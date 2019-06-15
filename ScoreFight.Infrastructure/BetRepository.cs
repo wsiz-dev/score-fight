@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ScoreFight.Domain.Bets;
@@ -14,12 +16,20 @@ namespace ScoreFight.Infrastructure
             _context = context;
         }
 
-        public Bet GetBet(Guid playerId, Guid matchId)
+        public Bet GetPlayerBet(Guid playerId, Guid matchId)
         {
             return _context.Bets
                 .Where(x => x.PlayerId == playerId && x.MatchId == matchId)
-                .Include(x => x.Matches)
+                .Include(x => x.Match)
                 .FirstOrDefault();
+        }
+
+        public ICollection<Bet> GetBetsByMatchId(Guid matchId)
+        {
+            return _context.Bets
+                .Where(x => x.MatchId == matchId)
+                .Include(x => x.Player)
+                .ToList();
         }
 
         public bool Exist(Guid playerId, Guid matchId)

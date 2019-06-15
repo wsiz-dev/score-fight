@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ScoreFight.Domain.Bets
 {
     public interface IBetRepository
     {
-        Bet GetBet(Guid playerId, Guid matchId);
+        Bet GetPlayerBet(Guid playerId, Guid matchId);
+
+        ICollection<Bet> GetBetsByMatchId(Guid matchId);
 
         bool Exist(Guid playerId, Guid matchId);
 

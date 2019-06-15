@@ -1,5 +1,4 @@
 ﻿using System;
-using ScoreFight.Domain.Bets.Enums;
 using ScoreFight.Domain.Matches;
 using ScoreFight.Domain.Players;
 
@@ -7,34 +6,33 @@ namespace ScoreFight.Domain.Bets
 {
     public class Bet
     {
-        public Bet(Guid playerId, Guid matchId, TeamBet teamBet, int points)
+        public Bet(Guid playerId, Guid matchId, MatchResults matchResults, int points)
         {
             PlayerId = playerId;
             MatchId = matchId;
-            TeamBet = teamBet;
+            MatchResults = matchResults;
             Points = points;
         }
-        public Player Players { get; protected set; }
+        public Player Player { get; protected set; }
 
         public Guid PlayerId { get; protected set; }
 
-        public Match Matches { get; protected set; }
+        public Match Match { get; protected set; }
 
         public Guid MatchId { get; protected set; }
 
-        public TeamBet TeamBet { get; protected set; }
+        public MatchResults MatchResults { get; protected set; }
 
         public int Points { get; protected set; }
 
-        public void SetTeamBet(int teamBet)
+        public void SetMatchResult(int matchResults)
         {
-            TeamBet = (TeamBet)teamBet;
+            MatchResults = (MatchResults)matchResults;
         }
 
         public void SetPointsBet(int pointsBet)
         {
             Points = pointsBet;
         }
-
     }
 }

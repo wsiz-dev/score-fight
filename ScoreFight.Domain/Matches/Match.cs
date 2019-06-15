@@ -18,5 +18,10 @@ namespace ScoreFight.Domain.Matches
 
         public virtual ICollection<Bet> Bets { get; protected set; }
 
+        public void SetResult(MatchResults result)
+        {
+            Result = result;
+        }
+
     }
 }

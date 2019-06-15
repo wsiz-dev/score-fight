@@ -21,5 +21,20 @@ namespace ScoreFight.Domain.Players
         public int Loses { get; set; }
 
         public virtual ICollection<Bet> Bets { get; protected set; }
+
+        public void AddPointsAfterWin(int points, int lockedPoints, int pointsToDistribute)
+        {
+            if (lockedPoints == 0)
+            {
+                Points += points;
+                return;
+            }
+
+            var participationPoints = (double)points / lockedPoints;
+            var pointsEarned = pointsToDistribute * participationPoints;
+            Points += (int)pointsEarned;
+        }
+
     }
+
 }

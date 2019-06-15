@@ -25,7 +25,7 @@ namespace ScoreFight.Api.Controllers
         ///     POST api/matches/{matchId}/bets
         ///     {   "matchId": "081ede0d-2fdf-4d0b-9b8e-6cc256deacd0",
         ///         "playerId": "C9888D13-E9DA-454A-86A2-62BEC0302F2D",
-        ///         "teamBet": "2",
+        ///         "matchResults": "2",
         ///         "pointsBet": 100
         ///     }
         /// 
@@ -67,7 +67,7 @@ namespace ScoreFight.Api.Controllers
         ///     PUT api/matches/{matchId}/bets
         ///     {   "matchId": "081ede0d-2fdf-4d0b-9b8e-6cc256deacd0",
         ///         "playerId": "C9888D13-E9DA-454A-86A2-62BEC0302F2D",
-        ///         "teamBet": "2",
+        ///         "matchResults": "2",
         ///         "pointsBet": 100
         ///     }
         /// 

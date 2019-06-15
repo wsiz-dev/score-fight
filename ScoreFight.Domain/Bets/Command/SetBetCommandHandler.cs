@@ -1,5 +1,4 @@
 ﻿using System;
-using ScoreFight.Domain.Bets.Enums;
 using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
 
@@ -30,7 +29,7 @@ namespace ScoreFight.Domain.Bets.Command
             _betCommandValidator.CheckIfMatchDoesNotExist(match, command.MatchId);
             _betCommandValidator.CheckIfMatchAlreadyStarted(match);
 
-            var bet = new Bet(playerId, matchId, (TeamBet)command.TeamBet, command.PointsBet);
+            var bet = new Bet(playerId, matchId, (MatchResults)command.TeamBet, command.PointsBet);
 
             _betRepository.Save(bet);
         }

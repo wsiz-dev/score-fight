@@ -9,5 +9,7 @@ namespace ScoreFight.Domain.Matches
         IEnumerable<Match> Query(Func<IQueryable<Match>, IEnumerable<Match>> query);
 
         Match GetById(Guid matchId);
+
+        void Commit();
     }
 }

@@ -22,5 +22,10 @@ namespace ScoreFight.Infrastructure
                 return _efContext.Matches
                     .FirstOrDefault(x => x.Id == matchId);
             }
+
+        public void Commit()
+        {
+            _efContext.SaveChanges();
+        }
     }
 }

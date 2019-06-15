@@ -12,12 +12,12 @@ namespace ScoreFight.Infrastructure.EntityConfiguration
                 .HasKey(b => new { b.PlayerId, b.MatchId });
 
             builder
-                .HasOne(b => b.Matches)
+                .HasOne(b => b.Match)
                 .WithMany(b => b.Bets)
                 .HasForeignKey(b => b.MatchId);
 
             builder
-                .HasOne(b => b.Players)
+                .HasOne(b => b.Player)
                 .WithMany(b => b.Bets)
                 .HasForeignKey(b => b.PlayerId);
         }
