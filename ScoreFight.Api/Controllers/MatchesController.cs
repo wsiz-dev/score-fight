@@ -48,7 +48,7 @@ namespace ScoreFight.Api.Controllers
         /// <response code="202">Bet correctly deleted</response>
         /// <response code="404">Given bet was not found</response>
         /// 
-        [Route("/end")]
+        [Route("api/matches/end")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Match>), 200)]
         [ProducesResponseType(typeof(IEnumerable<Match>), 404)]
