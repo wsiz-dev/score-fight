@@ -6,7 +6,7 @@ using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Domain.Bets.Command
 {
-    public class CancelBetCommandHandler : ICommandHandler<CancelBetCommand>
+    internal class CancelBetCommandHandler : ICommandHandler<CancelBetCommand>
     {
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
@@ -18,6 +18,7 @@ namespace ScoreFight.Domain.Bets.Command
             _matchesRepository = matchesRepository;
             _betCommandValidator = betCommandValidator;
         }
+
         public void Handle(CancelBetCommand command)
         {
             var userId = Guid.Parse(command.PlayerId);

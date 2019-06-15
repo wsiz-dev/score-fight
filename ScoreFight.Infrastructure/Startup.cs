@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ScoreFight.Domain;
 using ScoreFight.Domain.Bets;
+using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
 using ScoreFight.Domain.Players;
 
@@ -14,6 +15,7 @@ namespace ScoreFight.Infrastructure
             containerBuilder.RegisterType<FootballRepository>().As<IFootballRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MatchesRepository>().As<IMatchesRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<PlayersRepository>().As<IPlayersRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<BetCommandValidator>().As<BetCommandValidator>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<BetRepository>().As<IBetRepository>().InstancePerLifetimeScope();
             containerBuilder.Register(context =>
             {

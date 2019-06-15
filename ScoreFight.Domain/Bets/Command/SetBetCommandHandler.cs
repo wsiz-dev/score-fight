@@ -5,7 +5,7 @@ using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Domain.Bets.Command
 {
-    public class SetBetCommandHandler : ICommandHandler<SetBetCommand>
+    internal class SetBetCommandHandler : ICommandHandler<SetBetCommand>
     {
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
@@ -17,6 +17,7 @@ namespace ScoreFight.Domain.Bets.Command
             _matchesRepository = matchesRepository;
             _betCommandValidator = betCommandValidator;
         }
+
         public void Handle(SetBetCommand command)
         {
             var playerId = Guid.Parse(command.PlayerId);

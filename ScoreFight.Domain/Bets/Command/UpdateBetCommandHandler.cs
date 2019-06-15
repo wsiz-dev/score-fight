@@ -4,7 +4,7 @@ using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Domain.Bets.Command
 {
-    public class UpdateBetCommandHandler : ICommandHandler<UpdateBetCommand>
+    internal class UpdateBetCommandHandler : ICommandHandler<UpdateBetCommand>
     {
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
@@ -31,6 +31,7 @@ namespace ScoreFight.Domain.Bets.Command
 
             bet.SetTeamBet(command.TeamBet);
             bet.SetPointsBet(command.PointsBet);
+
             _betRepository.Commit();;
         }
     }
