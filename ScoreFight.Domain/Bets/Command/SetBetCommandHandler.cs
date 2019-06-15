@@ -1,7 +1,6 @@
 ﻿using System;
 using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
-using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets.Command
 {

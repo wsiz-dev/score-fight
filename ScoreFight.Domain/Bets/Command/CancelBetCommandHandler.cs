@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ScoreFight.Domain.Bets.Validators;
-using ScoreFight.Domain.Matches;
-using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets.Command
 {
     internal class CancelBetCommandHandler : ICommandHandler<CancelBetCommand>
     {
         private readonly IBetRepository _betRepository;
-        private readonly IMatchesRepository _matchesRepository;
         private readonly BetCommandValidator _betCommandValidator;
 
-        public CancelBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, BetCommandValidator betCommandValidator)
+        public CancelBetCommandHandler(IBetRepository betRepository, BetCommandValidator betCommandValidator)
         {
             _betRepository = betRepository;
-            _matchesRepository = matchesRepository;
             _betCommandValidator = betCommandValidator;
         }
 
