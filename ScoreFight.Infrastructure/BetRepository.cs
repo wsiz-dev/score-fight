@@ -34,18 +34,19 @@ namespace ScoreFight.Infrastructure
                 .ToList();
         }
 
-        public bool Exist(Guid playerId, Guid matchId)
-        {
-            return _context.Bets.Any(x => x.PlayerId == playerId && x.MatchId == matchId);
-        }
-
-        public void Save(Bet bet)
+        public void Add(Bet bet)
         {
             _context.Bets.Add(bet);
             _context.SaveChanges();
         }
 
-        public void Cancel(Bet bet)
+        public void Update(Bet bet)
+        {
+            _context.Bets.Update(bet);
+            _context.SaveChanges();
+        }
+
+        public void Remove(Bet bet)
         {
             _context.Bets.Remove(bet);
             _context.SaveChanges();

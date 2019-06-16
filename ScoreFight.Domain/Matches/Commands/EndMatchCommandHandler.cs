@@ -43,7 +43,7 @@ namespace ScoreFight.Domain.Matches.Commands
 
             foreach (var bet in bets)
             {
-                if (bet.MatchResults != result)
+                if (bet.MatchResult != result)
                 {
                     continue;
                 }
@@ -60,7 +60,7 @@ namespace ScoreFight.Domain.Matches.Commands
 
         private static int SetPointsToDistribute(IEnumerable<Bet> bets, MatchResults result)
         {
-            return bets.Where(bet => bet.MatchResults == result)
+            return bets.Where(bet => bet.MatchResult == result)
                 .Sum(bet => bet.Points);
         }
 

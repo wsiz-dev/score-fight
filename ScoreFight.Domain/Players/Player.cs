@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using ScoreFight.Domain.Bets;
 
 namespace ScoreFight.Domain.Players
 {
@@ -20,8 +18,6 @@ namespace ScoreFight.Domain.Players
 
         public int Loses { get; set; }
 
-        public virtual ICollection<Bet> Bets { get; protected set; }
-
         public void AddPointsAfterWin(int points, int lockedPoints, int pointsToDistribute)
         {
             if (lockedPoints == 0)
@@ -35,33 +31,19 @@ namespace ScoreFight.Domain.Players
             Points += (int)pointsEarned;
         }
 
-        public void CountPointsAfterBet(int points)
+        public void SpendPoints(int points)
         {
             if (points >= Points)
             {
                 throw  new ArgumentException($"Not enough points. You bet: ' {points} 'points. Your number of points is: ' {Points} '.");
             }
+
             Points -= points;
         }
 
-        public void CountPointsAfterBetEdit(int points, int pointsInBet)
-        {
-            if (pointsInBet > points)
-            {
-                Points += pointsInBet - points;
-                return;
-            }
-
-            if (points >= Points)
-            {
-                throw new ArgumentException($"Not enough points. You bet: ' {points} 'points. Your number of points is: ' {Points} '.");
-            }
-            Points -= points - pointsInBet;
-        }
-        public void CountPointsAfterCancel(int points)
+        public void RestorePoints(int points)
         {
             Points += points;
         }
     }
-
 }

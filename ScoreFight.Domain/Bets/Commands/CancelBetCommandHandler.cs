@@ -31,10 +31,10 @@ namespace ScoreFight.Domain.Bets.Commands
                 throw new Exception($"Given match '{match.Id.ToString()}' already started.");
             }
 
-            _betRepository.Cancel(bet);
+            _betRepository.Remove(bet);
 
             var player = _playersRepository.GetById(command.PlayerId);
-            player.CountPointsAfterCancel(bet.Points);
+            player.RestorePoints(bet.Points);
             _playersRepository.Update(player);
         }
     }

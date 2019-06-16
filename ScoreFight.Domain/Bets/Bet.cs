@@ -9,7 +9,7 @@ namespace ScoreFight.Domain.Bets
 
         public Guid MatchId { get; set; }
 
-        public MatchResults MatchResults { get; set; }
+        public MatchResults MatchResult { get; set; }
 
         public int Points { get; set; }
     }

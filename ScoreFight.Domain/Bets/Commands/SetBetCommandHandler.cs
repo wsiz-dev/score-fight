@@ -19,11 +19,6 @@ namespace ScoreFight.Domain.Bets.Commands
 
         public void Handle(SetBetCommand command)
         {
-            if (_betRepository.Exist(command.PlayerId, command.MatchId))
-            {
-                throw new Exception($"Bet for PlayerId: '{command.PlayerId.ToString()}' and MatchId: '{command.MatchId.ToString()}' already exists.");
-            }
-
             var match = _matchesRepository.GetById(command.MatchId);
             if (match == null)
             {
@@ -41,17 +36,32 @@ namespace ScoreFight.Domain.Bets.Commands
                 throw new NullReferenceException($"Given player '{command.PlayerId.ToString()}' does not exists.");
             }
 
-            var bet = new Bet
+            var bet = _betRepository.GetPlayerBet(command.PlayerId, command.MatchId);
+            if (bet != null)
             {
-                PlayerId = command.PlayerId,
-                MatchId = command.MatchId,
-                MatchResults = command.TeamBet,
-                Points = command.PointsBet
-            };
+                player.RestorePoints(bet.Points);
+                player.SpendPoints(command.Points);
 
-            player.CountPointsAfterBet(command.PointsBet);
+                bet.MatchResult = command.MatchResult;
+                bet.Points = command.Points;
 
-            _betRepository.Save(bet);
+                _betRepository.Update(bet);
+            }
+            else
+            {
+                bet = new Bet
+                {
+                    PlayerId = command.PlayerId,
+                    MatchId = command.MatchId,
+                    MatchResult = command.MatchResult,
+                    Points = command.Points
+                };
+
+                player.SpendPoints(command.Points);
+
+                _betRepository.Add(bet);
+            }
+            
             _playersRepository.Update(player);
         }
     }
