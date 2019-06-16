@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Bets.Services.Interfaces;
 using ScoreFight.Domain.Players;
 
-namespace ScoreFight.Domain.Matches.Command
+namespace ScoreFight.Domain.Matches.Commands
 {
     internal class EndMatchCommandHandler : ICommandHandler<EndMatchCommand>
     {

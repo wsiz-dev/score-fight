@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ScoreFight.Domain.Bets.Query
+namespace ScoreFight.Domain.Bets.Queries
 {
     public class GetPlayersBetsQuery : IQuery<ICollection<Bet>>
     {

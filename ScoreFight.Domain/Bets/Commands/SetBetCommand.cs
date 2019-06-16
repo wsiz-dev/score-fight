@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScoreFight.Domain.Bets.Command
+namespace ScoreFight.Domain.Bets.Commands
 {
     public class SetBetCommand : ICommand
     {

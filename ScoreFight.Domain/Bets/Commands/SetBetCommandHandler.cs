@@ -2,7 +2,7 @@
 using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
 
-namespace ScoreFight.Domain.Bets.Command
+namespace ScoreFight.Domain.Bets.Commands
 {
     internal class SetBetCommandHandler : ICommandHandler<SetBetCommand>
     {

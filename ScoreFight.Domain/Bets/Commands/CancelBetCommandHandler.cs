@@ -1,20 +1,20 @@
 ﻿using System;
 using ScoreFight.Domain.Bets.Validators;
 
-namespace ScoreFight.Domain.Bets.Command
+namespace ScoreFight.Domain.Bets.Commands
 {
-    internal class UpdateBetCommandHandler : ICommandHandler<UpdateBetCommand>
+    internal class CancelBetCommandHandler : ICommandHandler<CancelBetCommand>
     {
         private readonly IBetRepository _betRepository;
         private readonly BetCommandValidator _betCommandValidator;
 
-        public UpdateBetCommandHandler(IBetRepository betRepository, BetCommandValidator betCommandValidator)
+        public CancelBetCommandHandler(IBetRepository betRepository, BetCommandValidator betCommandValidator)
         {
             _betRepository = betRepository;
             _betCommandValidator = betCommandValidator;
         }
 
-        public void Handle(UpdateBetCommand command)
+        public void Handle(CancelBetCommand command)
         {
             var playerId = Guid.Parse(command.PlayerId);
             var matchId = Guid.Parse(command.MatchId);
@@ -26,12 +26,8 @@ namespace ScoreFight.Domain.Bets.Command
             }
 
             _betCommandValidator.CheckIfMatchAlreadyStarted(bet.Match);
-
-            bet.Player.CountPointsAfterBetEdit(command.PointsBet, bet.Points);
-            bet.SetMatchResult(command.TeamBet);
-            bet.SetPointsBet(command.PointsBet);
-
-            _betRepository.Commit();;
+            _betRepository.Cancel(bet);
+            bet.Player.CountPointsAfterCancel(bet.Points);
         }
     }
 }

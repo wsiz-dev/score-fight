@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ScoreFight.Domain;
 using ScoreFight.Domain.Matches;
-using ScoreFight.Domain.Matches.Command;
+using ScoreFight.Domain.Matches.Commands;
+using ScoreFight.Domain.Matches.Queries;
 
 namespace ScoreFight.Api.Controllers
 {

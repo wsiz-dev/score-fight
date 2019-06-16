@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ScoreFight.Domain.Bets.Query
+namespace ScoreFight.Domain.Bets.Queries
 {
     public class GetPlayerBetsQueryHandler : IQueryHandler<GetPlayersBetsQuery, ICollection<Bet>>
     {

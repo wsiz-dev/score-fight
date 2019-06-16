@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ScoreFight.Domain.Bets.Command
+namespace ScoreFight.Domain.Bets.Commands
 {
     public class CancelBetCommand : ICommand
     {

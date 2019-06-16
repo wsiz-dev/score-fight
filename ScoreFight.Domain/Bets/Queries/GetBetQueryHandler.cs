@@ -1,4 +1,4 @@
-﻿namespace ScoreFight.Domain.Bets.Query
+﻿namespace ScoreFight.Domain.Bets.Queries
 {
     public class GetBetQueryHandler : IQueryHandler<GetBetQuery, Bet>
     {

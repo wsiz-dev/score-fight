@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScoreFight.Domain.Bets.Query
+namespace ScoreFight.Domain.Bets.Queries
 {
     public class GetBetQuery : IQuery<Bet>
     {

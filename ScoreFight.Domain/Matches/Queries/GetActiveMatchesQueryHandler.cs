@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ScoreFight.Domain.Matches
+namespace ScoreFight.Domain.Matches.Queries
 {
     internal class GetActiveMatchesQueryHandler : IQueryHandler<GetActiveMatchesQuery, IEnumerable<Match>>
     {

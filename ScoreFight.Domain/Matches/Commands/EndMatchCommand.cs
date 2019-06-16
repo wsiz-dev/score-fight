@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScoreFight.Domain.Matches.Command
+namespace ScoreFight.Domain.Matches.Commands
 {
     public class EndMatchCommand : ICommand
     {

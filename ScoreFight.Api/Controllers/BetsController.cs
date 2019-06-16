@@ -1,19 +1,19 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using ScoreFight.Domain;
-using ScoreFight.Domain.Bets.Command;
-using ScoreFight.Domain.Bets.Query;
+using ScoreFight.Domain.Bets.Commands;
+using ScoreFight.Domain.Bets.Queries;
 using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Api.Controllers
 {
     [Route("api/matches/{matchId}/bets")]
     [ApiController]
-    public class BetController : ControllerBase
+    public class BetsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public BetController(IMediator mediator)
+        public BetsController(IMediator mediator)
         {
             _mediator = mediator;
         }
