@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using ScoreFight.Domain.Bets;
 
 namespace ScoreFight.Infrastructure
@@ -19,17 +17,13 @@ namespace ScoreFight.Infrastructure
         public Bet GetPlayerBet(Guid playerId, Guid matchId)
         {
             return _context.Bets
-                .Where(x => x.PlayerId == playerId && x.MatchId == matchId)
-                .Include(x => x.Match)
-                .Include(x => x.Player)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.PlayerId == playerId && x.MatchId == matchId);
         }
 
         public ICollection<Bet> GetBetsByMatchId(Guid matchId)
         {
             return _context.Bets
                 .Where(x => x.MatchId == matchId)
-                .Include(x => x.Player)
                 .ToList();
         }
 
@@ -37,7 +31,6 @@ namespace ScoreFight.Infrastructure
         {
             return _context.Bets
                 .Where(x => x.PlayerId == playerId)
-                .Include(x => x.Player)
                 .ToList();
         }
 
@@ -49,17 +42,12 @@ namespace ScoreFight.Infrastructure
         public void Save(Bet bet)
         {
             _context.Bets.Add(bet);
-            Commit();
+            _context.SaveChanges();
         }
 
         public void Cancel(Bet bet)
         {
             _context.Bets.Remove(bet);
-            Commit();
-        }
-
-        public void Commit()
-        {
             _context.SaveChanges();
         }
     }

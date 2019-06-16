@@ -19,5 +19,11 @@ namespace ScoreFight.Infrastructure
 
         public Player GetById(Guid id)
             => _efContext.Players.Find(id);
+
+        public void Update(Player player)
+        {
+            _efContext.Players.Update(player);
+            _efContext.SaveChanges();
+        }
     }
 }

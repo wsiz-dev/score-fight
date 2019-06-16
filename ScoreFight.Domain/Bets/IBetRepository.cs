@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace ScoreFight.Domain.Bets
@@ -17,7 +16,5 @@ namespace ScoreFight.Domain.Bets
         void Save(Bet bet);
 
         void Cancel(Bet bet);
-
-        void Commit();
     }
 }

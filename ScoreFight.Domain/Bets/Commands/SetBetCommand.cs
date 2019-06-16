@@ -1,31 +1,16 @@
 ﻿using System;
+using ScoreFight.Domain.Matches;
 
 namespace ScoreFight.Domain.Bets.Commands
 {
     public class SetBetCommand : ICommand
     {
-        public string PlayerId { get; }
+        public Guid PlayerId { get; set; }
 
-        public string MatchId { get; }
+        public Guid MatchId { get; set; }
 
-        public int TeamBet { get; }
+        public MatchResults TeamBet { get; set; }
 
-        public int PointsBet { get; }
-
-
-        public SetBetCommand(string playerId, string matchId, int teamBet, int pointsBet)
-        {
-            if (string.IsNullOrWhiteSpace(playerId)) throw new ArgumentException(nameof(playerId));
-            PlayerId = playerId;
-
-            if (string.IsNullOrWhiteSpace(matchId)) throw new ArgumentException(nameof(matchId));
-            MatchId = matchId;
-
-            if (teamBet < 0) throw new ArgumentException(nameof(teamBet));
-            TeamBet = teamBet;
-
-            if (pointsBet < 0) throw new ArgumentException(nameof(pointsBet));
-            PointsBet = pointsBet;  
-        }
+        public int PointsBet { get; set; }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using ScoreFight.Domain;
 using ScoreFight.Domain.Bets;
-using ScoreFight.Domain.Bets.Services;
-using ScoreFight.Domain.Bets.Services.Interfaces;
-using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
 using ScoreFight.Domain.Players;
 
@@ -16,8 +13,6 @@ namespace ScoreFight.Infrastructure
             ConfigureMediator(containerBuilder);
             containerBuilder.RegisterType<MatchesRepository>().As<IMatchesRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<PlayersRepository>().As<IPlayersRepository>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<BetCommandValidator>().As<BetCommandValidator>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<PointService>().As<IPointService>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<BetRepository>().As<IBetRepository>().InstancePerLifetimeScope();
             containerBuilder.Register(context =>
             {

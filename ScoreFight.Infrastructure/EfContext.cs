@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Matches;
 using ScoreFight.Domain.Players;
-using ScoreFight.Infrastructure.EntityConfiguration;
 
 namespace ScoreFight.Infrastructure
 {
@@ -26,7 +25,6 @@ namespace ScoreFight.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new BetConfiguration());
 
             modelBuilder.Entity<Match>().HasKey(x => x.Id);
             modelBuilder.Entity<Match>().HasData(MatchesInitialData());

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using ScoreFight.Domain.Bets;
 
 namespace ScoreFight.Domain.Matches
 {
@@ -15,13 +13,5 @@ namespace ScoreFight.Domain.Matches
         public DateTime Date { get; set; }
 
         public MatchResults? Result { get; set; }
-
-        public virtual ICollection<Bet> Bets { get; protected set; }
-
-        public void SetResult(MatchResults result)
-        {
-            Result = result;
-        }
-
     }
 }

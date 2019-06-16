@@ -1,6 +1,6 @@
 ﻿using System;
-using ScoreFight.Domain.Bets.Validators;
 using ScoreFight.Domain.Matches;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets.Commands
 {
@@ -8,32 +8,51 @@ namespace ScoreFight.Domain.Bets.Commands
     {
         private readonly IBetRepository _betRepository;
         private readonly IMatchesRepository _matchesRepository;
-        private readonly BetCommandValidator _betCommandValidator;
+        private readonly IPlayersRepository _playersRepository;
 
-        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, BetCommandValidator betCommandValidator)
+        public SetBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, IPlayersRepository playersRepository)
         {
             _betRepository = betRepository;
             _matchesRepository = matchesRepository;
-            _betCommandValidator = betCommandValidator;
+            _playersRepository = playersRepository;
         }
 
         public void Handle(SetBetCommand command)
         {
-            var playerId = Guid.Parse(command.PlayerId);
-            var matchId = Guid.Parse(command.MatchId);
+            if (_betRepository.Exist(command.PlayerId, command.MatchId))
+            {
+                throw new Exception($"Bet for PlayerId: '{command.PlayerId.ToString()}' and MatchId: '{command.MatchId.ToString()}' already exists.");
+            }
 
-            _betCommandValidator.CheckIfBetAlreadyExist(playerId, matchId);
+            var match = _matchesRepository.GetById(command.MatchId);
+            if (match == null)
+            {
+                throw new NullReferenceException($"Given match '{command.MatchId.ToString()}' does not exists.");
+            }
 
-            var match = _matchesRepository.GetById(matchId);
+            if (match.Date <= DateTime.UtcNow)
+            {
+                throw new Exception($"Given match '{match.Id.ToString()}' already started.");
+            }
 
-            _betCommandValidator.CheckIfMatchDoesNotExist(match, command.MatchId);
-            _betCommandValidator.CheckIfMatchAlreadyStarted(match);
+            var player = _playersRepository.GetById(command.PlayerId);
+            if (player == null)
+            {
+                throw new NullReferenceException($"Given player '{command.PlayerId.ToString()}' does not exists.");
+            }
 
-            var bet = new Bet(playerId, matchId, (MatchResults)command.TeamBet, command.PointsBet);
-            bet.Player.CountPointsAfterBet(command.PointsBet);
+            var bet = new Bet
+            {
+                PlayerId = command.PlayerId,
+                MatchId = command.MatchId,
+                MatchResults = command.TeamBet,
+                Points = command.PointsBet
+            };
+
+            player.CountPointsAfterBet(command.PointsBet);
 
             _betRepository.Save(bet);
+            _playersRepository.Update(player);
         }
-
     }
 }

@@ -1,33 +1,41 @@
 ﻿using System;
-using ScoreFight.Domain.Bets.Validators;
+using ScoreFight.Domain.Matches;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Domain.Bets.Commands
 {
     internal class CancelBetCommandHandler : ICommandHandler<CancelBetCommand>
     {
         private readonly IBetRepository _betRepository;
-        private readonly BetCommandValidator _betCommandValidator;
+        private readonly IMatchesRepository _matchesRepository;
+        private readonly IPlayersRepository _playersRepository;
 
-        public CancelBetCommandHandler(IBetRepository betRepository, BetCommandValidator betCommandValidator)
+        public CancelBetCommandHandler(IBetRepository betRepository, IMatchesRepository matchesRepository, IPlayersRepository playersRepository)
         {
             _betRepository = betRepository;
-            _betCommandValidator = betCommandValidator;
+            _matchesRepository = matchesRepository;
+            _playersRepository = playersRepository;
         }
 
         public void Handle(CancelBetCommand command)
         {
-            var playerId = Guid.Parse(command.PlayerId);
-            var matchId = Guid.Parse(command.MatchId);
-            var bet = _betRepository.GetPlayerBet(playerId, matchId);
-
+            var bet = _betRepository.GetPlayerBet(command.PlayerId, command.MatchId);
             if (bet == null)
             {
                 throw new NullReferenceException($"Bet for PlayerId: '{command.PlayerId}' and MatchId: ' {command.MatchId} ' does not exists.");
             }
 
-            _betCommandValidator.CheckIfMatchAlreadyStarted(bet.Match);
+            var match = _matchesRepository.GetById(command.MatchId);
+            if (match.Date <= DateTime.UtcNow)
+            {
+                throw new Exception($"Given match '{match.Id.ToString()}' already started.");
+            }
+
             _betRepository.Cancel(bet);
-            bet.Player.CountPointsAfterCancel(bet.Points);
+
+            var player = _playersRepository.GetById(command.PlayerId);
+            player.CountPointsAfterCancel(bet.Points);
+            _playersRepository.Update(player);
         }
     }
 }

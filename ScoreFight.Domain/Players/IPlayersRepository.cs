@@ -9,5 +9,7 @@ namespace ScoreFight.Domain.Players
         IEnumerable<Player> Query(Func<IQueryable<Player>, IEnumerable<Player>> query);
 
         Player GetById(Guid id);
+
+        void Update(Player player);
     }
 }
