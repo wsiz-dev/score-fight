@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {Http, RequestOptions, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 import 'rxjs';
 
 import {Match} from "./models/match";
@@ -14,5 +14,10 @@ export class MatchesService {
   getActive() : Observable<Match[]> {
     return this.http.get(this.apiUrl)
       .map((res) => res.json())
+  }
+
+  getById(id: string): Observable<Match> {
+    return this.http.get(`${this.apiUrl}/${id}`)
+      .map((res) => res.json());
   }
 }

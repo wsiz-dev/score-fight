@@ -32,6 +32,23 @@ namespace ScoreFight.Api.Controllers
         }
 
         /// <summary>
+        /// Get match by ID
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Match), 200)]
+        public IActionResult GetById(Guid id)
+        {
+            var result = _mediator.Query(new GetMatchByIdQuery(id));
+            if (result == null)
+            {
+                return NotFound(id);
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Set match result and count points for players
         /// </summary>
         /// <remarks>

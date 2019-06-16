@@ -31,6 +31,8 @@ namespace ScoreFight.Infrastructure
 
             modelBuilder.Entity<Player>().HasKey(x => x.Id);
             modelBuilder.Entity<Player>().HasData(PlayersInitialData());
+
+            modelBuilder.Entity<Bet>().HasKey(b => new { b.PlayerId, b.MatchId });
         }
 
         private static IEnumerable<Match> MatchesInitialData()

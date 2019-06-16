@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {Match} from "../models/match";
 import {MatchesService} from "../matches.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'cs-active-matches-list',
@@ -10,7 +11,8 @@ import {MatchesService} from "../matches.service";
 export class ActiveMatchesListComponent implements OnInit {
   matches : Match[] = [];
 
-  constructor(private matchesService: MatchesService) {}
+  constructor(private matchesService: MatchesService,
+              private router: Router) {}
 
   ngOnInit() {
     this.loadMatches();
@@ -20,5 +22,9 @@ export class ActiveMatchesListComponent implements OnInit {
     this.matchesService.getActive().subscribe((matches) => {
       this.matches = matches;
     });
+  }
+
+  goToMatch(match: Match): void {
+    this.router.navigate(['/matches', match.id]);
   }
 }

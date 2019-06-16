@@ -1,0 +1,48 @@
+<cs-header>
+  <p levels>Matches / {{ match?.homeTeam}} - {{ match?.awayTeam}}</p>
+
+  <div content>
+    <p>{{ match?.date | date:'shortDate' }}</p>
+  </div>
+</cs-header>
+
+<div class="data-container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1 class="text-center">{{match?.homeTeam}}</h1>
+      <hr/>
+      <div class="text-center">
+        <button class="btn btn-primary" (click)="selectTeam(1)" *ngIf="myBet != 1">SELECT</button>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h1 class="text-center">DRAW</h1>
+      <hr/>
+      <div class="text-center">
+        <button class="btn btn-primary" (click)="selectTeam(3)" *ngIf="myBet != 3">SELECT</button>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h1 class="text-center">{{match?.awayTeam}}</h1>
+      <hr/>
+      <div class="text-center">
+        <button class="btn btn-primary" (click)="selectTeam(2)" *ngIf="myBet != 2">SELECT</button>
+      </div>
+    </div>
+  </div>
+
+  <br/><br/><br/>
+  <br/><br/><br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="text-center">
+        <small>Your bet:</small><br/>
+        {{getMyBetText()}}
+      </h3>
+      <hr/>
+      <div class="text-center">
+        <button class="btn btn-warning" (click)="selectTeam(0)" *ngIf="myBet != 0">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
