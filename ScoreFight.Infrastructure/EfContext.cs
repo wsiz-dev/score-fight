@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ScoreFight.Domain;
 using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Matches;
 using ScoreFight.Domain.Players;
@@ -11,8 +10,6 @@ namespace ScoreFight.Infrastructure
 {
     internal class EfContext : DbContext
     {
-        public DbSet<Team> Teams { get; set; }
-
         public DbSet<Match> Matches { get; set; }
 
         public DbSet<Bet> Bets { get; set; }
@@ -31,31 +28,11 @@ namespace ScoreFight.Infrastructure
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new BetConfiguration());
 
-            modelBuilder.Entity<Team>().HasKey(x => x.Name);
-            modelBuilder.Entity<Team>().HasData(TeamsInitialData());
-
             modelBuilder.Entity<Match>().HasKey(x => x.Id);
             modelBuilder.Entity<Match>().HasData(MatchesInitialData());
 
             modelBuilder.Entity<Player>().HasKey(x => x.Id);
             modelBuilder.Entity<Player>().HasData(PlayersInitialData());
-        }
-
-        private static IEnumerable<Team> TeamsInitialData()
-        {
-            var teamNames = new [] { "Bayern", "Borussia", "Eintracht", "Schalke", "Bayer", "Hertha", "Leipizg", "Hoffenheim", "Stuttgart", "Wolfsburg" };
-            var random = new Random();
-
-            for (var i = 0; i < 10; i++)
-            {
-                var team = new Team(teamNames[i]);
-                for (var j = 0; j < 8; j++)
-                {
-                    team.InsertResult(random.Next(0, 5), random.Next(0, 5));
-                }
-
-                yield return team;
-            }
         }
 
         private static IEnumerable<Match> MatchesInitialData()

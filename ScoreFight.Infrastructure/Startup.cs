@@ -14,7 +14,6 @@ namespace ScoreFight.Infrastructure
         public static void Configure(ContainerBuilder containerBuilder)
         {
             ConfigureMediator(containerBuilder);
-            containerBuilder.RegisterType<FootballRepository>().As<IFootballRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MatchesRepository>().As<IMatchesRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<PlayersRepository>().As<IPlayersRepository>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<BetCommandValidator>().As<BetCommandValidator>().InstancePerLifetimeScope();
