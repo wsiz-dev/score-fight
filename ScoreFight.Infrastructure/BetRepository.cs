@@ -33,6 +33,14 @@ namespace ScoreFight.Infrastructure
                 .ToList();
         }
 
+        public ICollection<Bet> GetBetsByPlayerId(Guid playerId)
+        {
+            return _context.Bets
+                .Where(x => x.PlayerId == playerId)
+                .Include(x => x.Player)
+                .ToList();
+        }
+
         public bool Exist(Guid playerId, Guid matchId)
         {
             return _context.Bets.Any(x => x.PlayerId == playerId && x.MatchId == matchId);

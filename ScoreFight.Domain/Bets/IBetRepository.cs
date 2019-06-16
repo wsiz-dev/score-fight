@@ -10,6 +10,8 @@ namespace ScoreFight.Domain.Bets
 
         ICollection<Bet> GetBetsByMatchId(Guid matchId);
 
+        ICollection<Bet> GetBetsByPlayerId(Guid playerId);
+
         bool Exist(Guid playerId, Guid matchId);
 
         void Save(Bet bet);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ScoreFight.Domain;
 using ScoreFight.Domain.Bets.Command;
+using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Api.Controllers
 {
@@ -138,8 +139,30 @@ namespace ScoreFight.Api.Controllers
             {
                 return NotFound(ex.Message);
             }
-
         }
 
+        /// <summary>
+        /// Get player bets
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET api/player/{playerId}/bets
+        ///     {   
+        ///         "playerId": "C9888D13-E9DA-454A-86A2-62BEC0302F2D",
+        ///     }
+        /// 
+        /// </remarks>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        /// <response code="200">Ok</response>
+        /// 
+        [HttpGet]
+        [Route("api/player/{playerId}/bets")]
+        [ProducesResponseType(200)]
+        public IActionResult MyBets([FromBody] GetPlayerByIdQuery query)
+        {
+                return Ok(_mediator.Query(query));
+        }
     }
 }
