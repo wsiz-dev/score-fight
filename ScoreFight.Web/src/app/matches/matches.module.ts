@@ -4,13 +4,14 @@ import { ActiveMatchesListComponent } from './active-matches-list/active-matches
 import {MatchesService} from "./matches.service";
 import {SharedModule} from "../shared-module/shared.module";
 import { MatchDetailsComponent } from './match-details/match-details.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     MatchesService

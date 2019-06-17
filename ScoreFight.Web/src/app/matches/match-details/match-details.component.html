@@ -9,21 +9,30 @@
 <div class="data-container">
   <div class="row">
     <div class="col-sm-4">
-      <h1 class="text-center">{{match?.homeTeam}}</h1>
+      <h1 class="text-center">
+        {{match?.homeTeam}}<br/>
+        <small>{{betPoints.homeTeam}}</small>
+      </h1>
       <hr/>
       <div class="text-center">
         <button class="btn btn-primary" (click)="selectTeam(1)" *ngIf="myBet != 1">SELECT</button>
       </div>
     </div>
     <div class="col-sm-4">
-      <h1 class="text-center">DRAW</h1>
+      <h1 class="text-center">
+        DRAW<br/>
+        <small>{{betPoints.draw}}</small>
+      </h1>
       <hr/>
       <div class="text-center">
         <button class="btn btn-primary" (click)="selectTeam(3)" *ngIf="myBet != 3">SELECT</button>
       </div>
     </div>
     <div class="col-sm-4">
-      <h1 class="text-center">{{match?.awayTeam}}</h1>
+      <h1 class="text-center">
+        {{match?.awayTeam}}<br/>
+        <small>{{betPoints.awayTeam}}</small>
+      </h1>
       <hr/>
       <div class="text-center">
         <button class="btn btn-primary" (click)="selectTeam(2)" *ngIf="myBet != 2">SELECT</button>
@@ -39,10 +48,22 @@
         <small>Your bet:</small><br/>
         {{getMyBetText()}}
       </h3>
-      <hr/>
-      <div class="text-center">
-        <button class="btn btn-warning" (click)="selectTeam(0)" *ngIf="myBet != 0">Reset</button>
+      <p *ngIf="errorMessage" class="text-danger text-center">{{errorMessage}}</p>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <label> Points value:
+          <input type="number" [(ngModel)]="points" class="form-control" [min]="1">
+        </label>
       </div>
+    </div>
+    <div class="col-sm-6">
+      <br/>
+        <button class="btn btn-success" (click)="bet()" *ngIf="myBet != 0">Bet</button>
+        <button class="btn btn-warning" (click)="selectTeam(0)" *ngIf="myBet != 0">Reset</button>
     </div>
   </div>
 </div>
