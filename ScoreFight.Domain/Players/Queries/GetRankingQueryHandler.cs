@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ScoreFight.Domain.Players
+namespace ScoreFight.Domain.Players.Queries
 {
     internal class GetRankingQueryHandler : IQueryHandler<GetRankingQuery, IEnumerable<RankingPosition>>
     {

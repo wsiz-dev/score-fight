@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlayersService} from "../players.service";
 import {Player} from "../models/player";
+import {AuthProvider} from "../../shared-module/authProvider";
 
 @Component({
   selector: 'cs-my-profile',
@@ -8,17 +9,17 @@ import {Player} from "../models/player";
   styleUrls: ['./my-profile.component.less']
 })
 export class MyProfileComponent implements OnInit {
-  private readonly myHarcodedTemporaryIdFromApi: string = "C9888D13-E9DA-454A-86A2-62BEC0302F2D";
   player: Player;
 
-  constructor(private playersService: PlayersService) { }
+  constructor(private playersService: PlayersService,
+              private authProvider: AuthProvider) { }
 
   ngOnInit() {
     this.loadProfile();
   }
 
   loadProfile(): void {
-    this.playersService.getById(this.myHarcodedTemporaryIdFromApi)
+    this.playersService.getById(this.authProvider.getUserId())
       .subscribe((player) => {
         this.player = player;
       });

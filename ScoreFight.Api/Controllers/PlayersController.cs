@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ScoreFight.Domain;
 using ScoreFight.Domain.Players;
+using ScoreFight.Domain.Players.Queries;
 
 namespace ScoreFight.Api.Controllers
 {
@@ -44,6 +45,28 @@ namespace ScoreFight.Api.Controllers
         {
             var result = _mediator.Query(new GetRankingQuery());
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Get player bet matches
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET api/players/{playerId}/bet-matches
+        ///     {   
+        ///         "playerId": "C9888D13-E9DA-454A-86A2-62BEC0302F2D",
+        ///     }
+        /// 
+        /// </remarks>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        /// <response code="200">Ok</response>
+        [HttpGet("{playerId}/bet-matches")]
+        [ProducesResponseType(200)]
+        public IActionResult MyBets([FromRoute] GetPlayerBetMatchesQuery query)
+        {
+            return Ok(_mediator.Query(query));
         }
     }
 }

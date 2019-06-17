@@ -3,6 +3,7 @@ import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {Player} from "./models/player";
 import {RankingPosition} from "./models/rankingPosition";
+import {Match} from "../matches/models/match";
 
 @Injectable()
 export class PlayersService {
@@ -18,5 +19,10 @@ export class PlayersService {
   getRanking() : Observable<RankingPosition[]> {
     return this.http.get(`${this.apiUrl}/ranking`)
       .map((res) => res.json())
+  }
+
+  getBetMatches(id: string) : Observable<Match[]> {
+    return this.http.get(`${this.apiUrl}/${id}/bet-matches`)
+      .map((res) => res.json());
   }
 }

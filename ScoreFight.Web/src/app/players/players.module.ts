@@ -4,6 +4,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import {PlayersService} from "./players.service";
 import {SharedModule} from "../shared-module/shared.module";
 import { RankingComponent } from './ranking/ranking.component';
+import { MyBetsComponent } from './my-bets/my-bets.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { RankingComponent } from './ranking/ranking.component';
   providers: [
     PlayersService
   ],
-  declarations: [MyProfileComponent, RankingComponent]
+  declarations: [MyProfileComponent, RankingComponent, MyBetsComponent]
 })
 export class PlayersModule { }

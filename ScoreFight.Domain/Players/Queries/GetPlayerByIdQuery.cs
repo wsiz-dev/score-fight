@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScoreFight.Domain.Players
+namespace ScoreFight.Domain.Players.Queries
 {
     public class GetPlayerByIdQuery : IQuery<Player>
     {

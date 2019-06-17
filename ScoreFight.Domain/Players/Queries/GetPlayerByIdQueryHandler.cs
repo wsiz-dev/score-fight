@@ -1,4 +1,4 @@
-﻿namespace ScoreFight.Domain.Players
+﻿namespace ScoreFight.Domain.Players.Queries
 {
     internal class GetPlayerByIdQueryHandler : IQueryHandler<GetPlayerByIdQuery, Player>
     {

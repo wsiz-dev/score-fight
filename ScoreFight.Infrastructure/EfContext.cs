@@ -63,7 +63,7 @@ namespace ScoreFight.Infrastructure
             {
                 var id = i == 0 ? myId : Guid.NewGuid();
                 var level = random.Next(1, 15);
-                var wins = random.Next(1, 40);
+                var wins = random.Next(1, 20);
                 var loses = random.Next(5, 60);
 
                 var player = new Player
@@ -74,7 +74,7 @@ namespace ScoreFight.Infrastructure
                     MaxLevel = level + 5,
                     Wins = wins,
                     Loses = loses,
-                    Points = (wins * 10) - (loses * 3)
+                    Points = wins * 15
                 };
 
                 yield return player;
