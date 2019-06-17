@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Match} from "../models/match";
 import {MatchesService} from "../matches.service";
 import {BetPoints} from "../models/betPoints";
+import {Bet} from "../models/bet";
+import {AuthProvider} from "../../shared-module/authProvider";
 
 @Component({
   selector: 'cs-match-details',
@@ -11,21 +13,21 @@ import {BetPoints} from "../models/betPoints";
 })
 export class MatchDetailsComponent implements OnInit {
   private match: Match;
-  private myBet: number;
-  private points: number;
+  private myBet: Bet;
   private betPoints: BetPoints;
   private errorMessage: string;
+  private readonly playerId: string;
 
   constructor(private route: ActivatedRoute,
-              private matchesService: MatchesService) {
+              private matchesService: MatchesService,
+              private authProvider: AuthProvider) {
     this.betPoints = new BetPoints();
+    this.playerId = this.authProvider.getUserId().toLowerCase();
   }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('matchId');
     this.loadMatch(id);
-    this.myBet = 0;
-    this.points = 0;
   }
 
   loadMatch(id: string): void {
@@ -39,44 +41,66 @@ export class MatchDetailsComponent implements OnInit {
               awayTeam: this.calculatePointsForTeam(2),
               draw: this.calculatePointsForTeam(3)
             };
+
+            this.myBet = this.match.bets.find(x => x.playerId === this.playerId);
           });
       });
   }
 
   selectTeam(bet: number): void {
-    this.myBet = bet;
-    if (bet == 0) {
-      this.errorMessage = '';
+    if (!this.myBet){
+      this.myBet = {
+        playerId: this.playerId,
+        matchResult: bet,
+        points: 0,
+        matchId: this.match.id
+      };
+    } else {
+      this.myBet.matchResult = bet;
     }
   }
 
-  getMyBetText(): string {
-    switch (this.myBet) {
-      case 1: return this.match.homeTeam;
-      case 2: return this.match.awayTeam;
-      case 3: return 'DRAW';
-      default: return '';
-    }
+  reset(): void {
+    this.myBet.matchResult = 0;
+    this.myBet.points = 0;
+    this.errorMessage = '';
+  }
+
+  cancel(): void {
+    this.matchesService.cancelBet(this.myBet)
+      .subscribe(() => {
+        this.myBet = null;
+        this.loadMatch(this.match.id);
+      }, error => {
+        this.errorMessage = error.json().Message;
+      });
   }
 
   bet(): void {
-    if (this.myBet === 0) {
+    if (this.myBet.points === 0) {
       this.errorMessage = 'Bet must be chosen';
       return;
-    } else if (this.points < 1) {
+    } else if (this.myBet.points < 1) {
       this.errorMessage = 'Insert bet points value greater than 0';
       return;
     }
 
     this.errorMessage = '';
-    this.matchesService.bet(this.match.id, this.myBet, this.points)
+    this.matchesService.bet(this.myBet)
       .subscribe(() => {
-        this.myBet = 0;
-        this.points = 0;
         this.loadMatch(this.match.id);
       }, error => {
         this.errorMessage = error.json().Message;
       });
+  }
+
+  getMyBetText(): string {
+    switch (this.myBet.matchResult) {
+      case 1: return this.match.homeTeam;
+      case 2: return this.match.awayTeam;
+      case 3: return 'DRAW';
+      default: return '';
+    }
   }
 
   private calculatePointsForTeam(matchResult: number): number {

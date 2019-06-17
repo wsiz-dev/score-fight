@@ -15,7 +15,7 @@
       </h1>
       <hr/>
       <div class="text-center">
-        <button class="btn btn-primary" (click)="selectTeam(1)" *ngIf="myBet != 1">SELECT</button>
+        <button class="btn btn-primary" (click)="selectTeam(1)" *ngIf="myBet?.matchResult != 1">SELECT</button>
       </div>
     </div>
     <div class="col-sm-4">
@@ -25,7 +25,7 @@
       </h1>
       <hr/>
       <div class="text-center">
-        <button class="btn btn-primary" (click)="selectTeam(3)" *ngIf="myBet != 3">SELECT</button>
+        <button class="btn btn-primary" (click)="selectTeam(3)" *ngIf="myBet?.matchResult != 3">SELECT</button>
       </div>
     </div>
     <div class="col-sm-4">
@@ -35,14 +35,14 @@
       </h1>
       <hr/>
       <div class="text-center">
-        <button class="btn btn-primary" (click)="selectTeam(2)" *ngIf="myBet != 2">SELECT</button>
+        <button class="btn btn-primary" (click)="selectTeam(2)" *ngIf="myBet?.matchResult != 2">SELECT</button>
       </div>
     </div>
   </div>
 
   <br/><br/><br/>
   <br/><br/><br/>
-  <div class="row">
+  <div class="row" *ngIf="myBet">
     <div class="col-sm-12">
       <h3 class="text-center">
         <small>Your bet:</small><br/>
@@ -52,18 +52,19 @@
     </div>
   </div>
   <hr/>
-  <div class="row">
+  <div class="row" *ngIf="myBet">
     <div class="col-sm-6">
       <div class="form-group float-right">
         <label> Points value:
-          <input type="number" [(ngModel)]="points" class="form-control" [min]="1">
+          <input type="number" [(ngModel)]="myBet.points" class="form-control" [min]="1">
         </label>
       </div>
     </div>
     <div class="col-sm-6">
       <br/>
-        <button class="btn btn-success" (click)="bet()" *ngIf="myBet != 0">Bet</button>
-        <button class="btn btn-warning" (click)="selectTeam(0)" *ngIf="myBet != 0">Reset</button>
+      <button class="btn btn-outline-success" (click)="bet()">Save bet</button>
+      <button class="btn btn-outline-warning" (click)="reset()">Reset</button>
+      <button class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
     </div>
   </div>
 </div>

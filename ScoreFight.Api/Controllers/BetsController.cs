@@ -5,7 +5,6 @@ using ScoreFight.Domain;
 using ScoreFight.Domain.Bets;
 using ScoreFight.Domain.Bets.Commands;
 using ScoreFight.Domain.Bets.Queries;
-using ScoreFight.Domain.Players;
 
 namespace ScoreFight.Api.Controllers
 {
@@ -129,7 +128,7 @@ namespace ScoreFight.Api.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     PUT api/matches/{matchId}/bets
+        ///     DELETE api/matches/{matchId}/bets/{playerId}
         ///     {
         ///         "matchId": "081ede0d-2fdf-4d0b-9b8e-6cc256deacd0",
         ///         "playerId": "C9888D13-E9DA-454A-86A2-62BEC0302F2D"
@@ -142,11 +141,11 @@ namespace ScoreFight.Api.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="404">Given bet was not found</response>
         /// 
-        [HttpDelete]
+        [HttpDelete("{playerId}")]
         [ProducesResponseType(202)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult Bet([FromBody] CancelBetCommand command)
+        public IActionResult Bet([FromRoute] CancelBetCommand command)
         {
             try
             {
