@@ -54,7 +54,7 @@ namespace ScoreFight.Api.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     POST api/matches/end
+        ///     PUT api/matches
         ///     {
         ///         "matchId": "081ede0d-2fdf-4d0b-9b8e-6cc256deacd0",
         ///         "matchResult": 2
@@ -66,10 +66,7 @@ namespace ScoreFight.Api.Controllers
         /// <response code="202">Bet correctly deleted</response>
         /// <response code="404">Given bet was not found</response>
         /// 
-        [Route("end")]
-        [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<Match>), 200)]
-        [ProducesResponseType(typeof(IEnumerable<Match>), 404)]
+        [HttpPut]
         public IActionResult EndMatch([FromBody] EndMatchCommand command)
         {
             try

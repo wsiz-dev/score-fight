@@ -17,12 +17,14 @@ export class MatchDetailsComponent implements OnInit {
   private betPoints: BetPoints;
   private errorMessage: string;
   private readonly playerId: string;
+  private endMatchResult: number;
 
   constructor(private route: ActivatedRoute,
               private matchesService: MatchesService,
               private authProvider: AuthProvider) {
     this.betPoints = new BetPoints();
     this.playerId = this.authProvider.getUserId().toLowerCase();
+    this.endMatchResult = 0;
   }
 
   ngOnInit() {
@@ -94,8 +96,23 @@ export class MatchDetailsComponent implements OnInit {
       });
   }
 
+  end(): void {
+    if (this.endMatchResult < 1) {
+      return;
+    }
+
+    this.matchesService.end(this.match.id, this.endMatchResult)
+      .subscribe(() => {
+        this.loadMatch(this.match.id);
+      });
+  }
+
   getMyBetText(): string {
-    switch (this.myBet.matchResult) {
+    return this.getTextByBet(this.myBet.matchResult);
+  }
+
+  getTextByBet(matchResult: number): string {
+    switch (matchResult) {
       case 1: return this.match.homeTeam;
       case 2: return this.match.awayTeam;
       case 3: return 'DRAW';

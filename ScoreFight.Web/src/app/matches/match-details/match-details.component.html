@@ -14,7 +14,7 @@
         <small>{{betPoints.homeTeam}}</small>
       </h1>
       <hr/>
-      <div class="text-center">
+      <div class="text-center" *ngIf="!match?.result">
         <button class="btn btn-primary" (click)="selectTeam(1)" *ngIf="myBet?.matchResult != 1">SELECT</button>
       </div>
     </div>
@@ -24,7 +24,7 @@
         <small>{{betPoints.draw}}</small>
       </h1>
       <hr/>
-      <div class="text-center">
+      <div class="text-center" *ngIf="!match?.result">
         <button class="btn btn-primary" (click)="selectTeam(3)" *ngIf="myBet?.matchResult != 3">SELECT</button>
       </div>
     </div>
@@ -34,15 +34,26 @@
         <small>{{betPoints.awayTeam}}</small>
       </h1>
       <hr/>
-      <div class="text-center">
+      <div class="text-center" *ngIf="!match?.result">
         <button class="btn btn-primary" (click)="selectTeam(2)" *ngIf="myBet?.matchResult != 2">SELECT</button>
       </div>
     </div>
   </div>
+</div>
 
-  <br/><br/><br/>
-  <br/><br/><br/>
-  <div class="row" *ngIf="myBet">
+<div class="data-container" *ngIf="match?.result">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="text-center">
+        <small>Match ended with result:</small>
+        <strong>{{getTextByBet(match.result)}}</strong>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="data-container" *ngIf="myBet">
+  <div class="row">
     <div class="col-sm-12">
       <h3 class="text-center">
         <small>Your bet:</small><br/>
@@ -52,19 +63,33 @@
     </div>
   </div>
   <hr/>
-  <div class="row" *ngIf="myBet">
-    <div class="col-sm-6">
-      <div class="form-group float-right">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group text-center">
         <label> Points value:
-          <input type="number" [(ngModel)]="myBet.points" class="form-control" [min]="1">
+          <input type="number" [(ngModel)]="myBet.points" class="form-control" [min]="1" [disabled]="match?.result">
         </label>
+        <button class="btn btn-outline-success" (click)="bet()" *ngIf="!match?.result">Save bet</button>
+        <button class="btn btn-outline-warning" (click)="reset()" *ngIf="!match?.result">Reset</button>
+        <button class="btn btn-outline-danger" (click)="cancel()" *ngIf="!match?.result">Cancel</button>
       </div>
     </div>
-    <div class="col-sm-6">
-      <br/>
-      <button class="btn btn-outline-success" (click)="bet()">Save bet</button>
-      <button class="btn btn-outline-warning" (click)="reset()">Reset</button>
-      <button class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+  </div>
+</div>
+
+<div class="data-container" *ngIf="!match?.result">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="float-right">
+        <label>End match with result:
+          <select [(ngModel)]="endMatchResult" class="form-control">
+            <option value="1">{{match?.homeTeam}}</option>
+            <option value="3">DRAW</option>
+            <option value="2">{{match?.awayTeam}}</option>
+          </select>
+        </label>
+        <button class="btn btn-outline-danger" (click)="end()" [disabled]="endMatchResult < 1">End</button>
+      </div>
     </div>
   </div>
 </div>

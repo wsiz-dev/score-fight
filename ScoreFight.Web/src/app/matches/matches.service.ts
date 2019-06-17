@@ -27,6 +27,14 @@ export class MatchesService {
       .map((res) => res.json());
   }
 
+  end(matchId: string, matchResult: number): Observable<any> {
+    const data = {
+      matchId,
+      matchResult
+    };
+    return this.http.put(this.apiUrl, data);
+  }
+
   bet(bet: Bet): Observable<any> {
     return this.http.post(`${this.apiUrl}/${bet.matchId}/bets`, bet);
   }
